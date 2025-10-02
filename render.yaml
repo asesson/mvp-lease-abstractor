@@ -11,9 +11,7 @@ services:
       - key: NODE_VERSION
         value: 18.17.0
       - key: DATABASE_URL
-        fromDatabase:
-          name: lease-abstractor-db
-          property: connectionString
+        sync: false
       - key: OPENAI_API_KEY
         sync: false
       - key: ANTHROPIC_API_KEY
@@ -25,9 +23,5 @@ services:
       mountPath: /opt/render/project/src/uploads
       sizeGB: 10
 
-databases:
-  # PostgreSQL Database
-  - name: lease-abstractor-db
-    databaseName: lease_abstractor
-    plan: starter
-    region: oregon
+# Databases section removed - using existing Neon database
+# Set DATABASE_URL manually in Render dashboard to your Neon connection string
