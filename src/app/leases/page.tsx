@@ -1,16 +1,7 @@
 import Link from 'next/link';
 import { prisma } from '@/lib/db';
-import { FileText, ArrowLeft } from 'lucide-react';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
-import { Card } from '@/components/ui/card';
-import { LeaseRow } from './client';
+import { FileText, ArrowLeft, Plus } from 'lucide-react';
+import { LeasesList } from './leases-list';
 
 export const dynamic = 'force-dynamic';
 
@@ -24,65 +15,45 @@ export default async function LeasesPage() {
   const leases = await getLeases();
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="border-b">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 to-blue-50">
+      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <FileText className="h-6 w-6" />
-            <h1 className="text-xl font-bold">Tydal Lease Abstracts</h1>
+          <div className="flex items-center gap-3">
+            <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-2 rounded-lg">
+              <FileText className="h-5 w-5 text-white" />
+            </div>
+            <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              Lease Abstractor
+            </h1>
           </div>
-          <Link href="/" className="text-sm text-blue-600 hover:underline">
-            <ArrowLeft className="inline h-4 w-4 mr-1" />
+          <Link
+            href="/"
+            className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors flex items-center gap-1"
+          >
+            <ArrowLeft className="h-4 w-4" />
             Back to Upload
           </Link>
         </div>
       </header>
 
       <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="mb-6">
-          <h2 className="text-2xl font-bold mb-2">All Leases</h2>
-          <p className="text-gray-600">
-            View and manage all uploaded lease documents
-          </p>
+        <div className="mb-8 flex items-center justify-between">
+          <div>
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">All Leases</h2>
+            <p className="text-gray-600">
+              View and manage all uploaded lease documents
+            </p>
+          </div>
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg hover:from-blue-700 hover:to-indigo-700 transition-all shadow-sm hover:shadow-md"
+          >
+            <Plus className="h-4 w-4" />
+            New Lease
+          </Link>
         </div>
 
-        {leases.length === 0 ? (
-          <Card className="p-12 text-center">
-            <FileText className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-            <h3 className="text-lg font-semibold mb-2">No leases yet</h3>
-            <p className="text-gray-600 mb-4">
-              Upload your first lease document to get started
-            </p>
-            <Link
-              href="/"
-              className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-            >
-              Upload Lease
-            </Link>
-          </Card>
-        ) : (
-          <Card>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Tenant Name</TableHead>
-                  <TableHead>Filename</TableHead>
-                  <TableHead>Status</TableHead>
-                  <TableHead>Uploaded</TableHead>
-                  <TableHead>Size</TableHead>
-                  <TableHead className="text-right">Actions</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {leases.map((lease) => (
-                  <TableRow key={lease.id}>
-                    <LeaseRow lease={lease} />
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </Card>
-        )}
+        <LeasesList leases={leases} />
       </main>
     </div>
   );

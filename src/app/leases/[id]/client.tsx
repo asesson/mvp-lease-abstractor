@@ -124,31 +124,24 @@ export function LeaseDetailClient({ lease }: { lease: Lease }) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <header className="border-b bg-white sticky top-0 z-10">
-        <div className="container mx-auto px-4 py-4">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 to-blue-50">
+      <header className="border-b bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <div className="container mx-auto px-4 py-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              {/* Logo placeholder - replace src with actual logo path */}
-              <img
-                src="/logo.png"
-                alt="Logo"
-                className="h-10 w-auto"
-                onError={(e) => {
-                  // Hide logo if it doesn't exist
-                  (e.target as HTMLImageElement).style.display = 'none';
-                }}
-              />
               <Link href="/leases">
-                <Button variant="ghost" size="sm">
-                  <ArrowLeft className="h-4 w-4 mr-2" />
+                <Button variant="ghost" size="sm" className="gap-2">
+                  <ArrowLeft className="h-4 w-4" />
                   Back
                 </Button>
               </Link>
-              <div className="flex items-center gap-2">
-                <FileText className="h-5 w-5" />
+              <div className="border-l border-gray-300 h-8" />
+              <div className="flex items-center gap-3">
+                <div className="bg-gradient-to-br from-blue-600 to-indigo-600 p-2 rounded-lg">
+                  <FileText className="h-4 w-4 text-white" />
+                </div>
                 <div>
-                  <h1 className="font-bold">{lease.filename}</h1>
+                  <h1 className="font-bold text-gray-900 truncate max-w-md">{lease.filename}</h1>
                   <p className="text-xs text-gray-500">
                     Uploaded {new Date(lease.uploadedAt).toLocaleDateString()}
                   </p>
@@ -160,22 +153,28 @@ export function LeaseDetailClient({ lease }: { lease: Lease }) {
                 variant="outline"
                 size="sm"
                 onClick={() => window.open(`/api/leases/${lease.id}/pdf`, '_blank')}
+                className="gap-2"
               >
-                <Download className="h-4 w-4 mr-2" />
-                Download PDF
+                <Download className="h-4 w-4" />
+                PDF
               </Button>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={handleDelete}
                 disabled={deleting}
-                className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                className="text-red-600 hover:text-red-700 hover:bg-red-50 gap-2"
               >
-                <Trash2 className="h-4 w-4 mr-2" />
+                <Trash2 className="h-4 w-4" />
                 Delete
               </Button>
-              <Button size="sm" onClick={handleSave} disabled={saving}>
-                {saving ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : null}
+              <Button
+                size="sm"
+                onClick={handleSave}
+                disabled={saving}
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 gap-2"
+              >
+                {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
                 Save Changes
               </Button>
             </div>
@@ -183,12 +182,12 @@ export function LeaseDetailClient({ lease }: { lease: Lease }) {
         </div>
       </header>
 
-      <main className="flex-1 container mx-auto px-4 py-8 max-w-6xl">
+      <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">
         <div className="space-y-6">
           {/* Parties */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Parties</CardTitle>
+          <Card className="bg-white shadow-md hover:shadow-lg transition-shadow">
+            <CardHeader className="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+              <CardTitle className="text-lg font-bold text-gray-900">Parties</CardTitle>
             </CardHeader>
             <CardContent className="grid md:grid-cols-2 gap-4">
               <div>
@@ -216,9 +215,9 @@ export function LeaseDetailClient({ lease }: { lease: Lease }) {
           </Card>
 
           {/* Property */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Property</CardTitle>
+          <Card className="bg-white shadow-md hover:shadow-lg transition-shadow">
+            <CardHeader className="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+              <CardTitle className="text-lg font-bold text-gray-900">Property</CardTitle>
             </CardHeader>
             <CardContent className="grid md:grid-cols-2 gap-4">
               <div className="md:col-span-2">
@@ -254,9 +253,9 @@ export function LeaseDetailClient({ lease }: { lease: Lease }) {
           </Card>
 
           {/* Term */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Lease Term</CardTitle>
+          <Card className="bg-white shadow-md hover:shadow-lg transition-shadow">
+            <CardHeader className="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+              <CardTitle className="text-lg font-bold text-gray-900">Lease Term</CardTitle>
             </CardHeader>
             <CardContent className="grid md:grid-cols-3 gap-4">
               <div>
@@ -287,9 +286,9 @@ export function LeaseDetailClient({ lease }: { lease: Lease }) {
           </Card>
 
           {/* Economics */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Economics</CardTitle>
+          <Card className="bg-white shadow-md hover:shadow-lg transition-shadow">
+            <CardHeader className="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+              <CardTitle className="text-lg font-bold text-gray-900">Economics</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="grid md:grid-cols-2 gap-4">
@@ -379,9 +378,9 @@ export function LeaseDetailClient({ lease }: { lease: Lease }) {
           </Card>
 
           {/* Services */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Services & Use</CardTitle>
+          <Card className="bg-white shadow-md hover:shadow-lg transition-shadow">
+            <CardHeader className="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+              <CardTitle className="text-lg font-bold text-gray-900">Services & Use</CardTitle>
             </CardHeader>
             <CardContent className="grid md:grid-cols-2 gap-4">
               <div>
@@ -406,9 +405,9 @@ export function LeaseDetailClient({ lease }: { lease: Lease }) {
           </Card>
 
           {/* Legal */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Legal Obligations</CardTitle>
+          <Card className="bg-white shadow-md hover:shadow-lg transition-shadow">
+            <CardHeader className="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+              <CardTitle className="text-lg font-bold text-gray-900">Legal Obligations</CardTitle>
             </CardHeader>
             <CardContent className="grid md:grid-cols-2 gap-4">
               <div>
@@ -433,9 +432,9 @@ export function LeaseDetailClient({ lease }: { lease: Lease }) {
           </Card>
 
           {/* Parking & Signage */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Parking & Signage</CardTitle>
+          <Card className="bg-white shadow-md hover:shadow-lg transition-shadow">
+            <CardHeader className="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+              <CardTitle className="text-lg font-bold text-gray-900">Parking & Signage</CardTitle>
             </CardHeader>
             <CardContent className="grid md:grid-cols-2 gap-4">
               <div>
@@ -460,10 +459,10 @@ export function LeaseDetailClient({ lease }: { lease: Lease }) {
           </Card>
 
           {/* Critical Dates */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Calendar className="h-5 w-5" />
+          <Card className="bg-white shadow-md hover:shadow-lg transition-shadow">
+            <CardHeader className="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+              <CardTitle className="flex items-center gap-2 text-lg font-bold text-gray-900">
+                <Calendar className="h-5 w-5 text-blue-600" />
                 Critical Dates
               </CardTitle>
             </CardHeader>
@@ -520,9 +519,9 @@ export function LeaseDetailClient({ lease }: { lease: Lease }) {
           </Card>
 
           {/* Comments */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Comments</CardTitle>
+          <Card className="bg-white shadow-md hover:shadow-lg transition-shadow">
+            <CardHeader className="border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
+              <CardTitle className="text-lg font-bold text-gray-900">Comments</CardTitle>
             </CardHeader>
             <CardContent>
               <Textarea
